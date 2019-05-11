@@ -3,7 +3,7 @@ require_relative '../../lib/matrix'
 
 describe Matrix do
   let(:height) { 5 }
-  let(:weight) { 3 }
+  let(:width) { 3 }
   context '#new' do
     it 'should raise ArgumentError with no params' do
       expect do
@@ -11,13 +11,13 @@ describe Matrix do
       end.to raise_error(ArgumentError)
     end
     it 'should assign instance variables' do
-      m = Matrix.new(weight, height)
+      m = Matrix.new(width, height)
       expect(m.instance_variable_get(:@height)).to_not be_nil
-      expect(m.instance_variable_get(:@weight)).to_not be_nil
+      expect(m.instance_variable_get(:@width)).to_not be_nil
     end
   end
   context '#generate' do
-    let(:matrix) { Matrix.new(weight, height) }
+    let(:matrix) { Matrix.new(width, height) }
     before(:each) { matrix.generate() }
 
     context 'matrix' do
@@ -34,11 +34,11 @@ describe Matrix do
         it 'should contain nested arrays == height' do
           expect(matrix.instance_variable_get(:@matrix).size).to eq height
         end
-        it 'should contain per each row == weight ' do
-          expect(matrix.instance_variable_get(:@matrix)[0].size).to eq weight
+        it 'should contain per each row == width ' do
+          expect(matrix.instance_variable_get(:@matrix)[0].size).to eq width
         end
-        it 'should contain total fields = height x weight ' do
-          expect(matrix.instance_variable_get(:@matrix).flatten.size).to eq height*weight
+        it 'should contain total fields = height x width ' do
+          expect(matrix.instance_variable_get(:@matrix).flatten.size).to eq height*width
         end
       end
     end

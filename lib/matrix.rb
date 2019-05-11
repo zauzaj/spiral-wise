@@ -3,7 +3,7 @@ class Matrix
   attr_reader :result
 
   def initialize(x, y)
-    @weight = x
+    @width = x
     @height = y
     @result = []
   end
@@ -16,9 +16,9 @@ class Matrix
   end
 
   def generate
-    nums = (1..@height*@weight).to_a
+    nums = (1..@height*@width).to_a
 
-    @matrix = Array.new(@height){Array.new(@weight)}
+    @matrix = Array.new(@height){Array.new(@width)}
 
     i = 0
     @matrix.each_with_index do |row, row_index|
