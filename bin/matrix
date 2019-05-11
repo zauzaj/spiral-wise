@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.expand_path('../../lib',__FILE__)
+require 'matrix'
+
+puts 'Enter width and height: '
+matrix = Matrix.new(gets.to_i, gets.to_i)
+
+matrix.generate
+
+p "Output: #{matrix.output}"
