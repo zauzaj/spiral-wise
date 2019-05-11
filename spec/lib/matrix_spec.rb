@@ -5,7 +5,7 @@ describe Matrix do
   let(:height) { 5 }
   let(:weight) { 3 }
   context '#new' do
-    it 'should raise ArgumentError ' do
+    it 'should raise ArgumentError with no params' do
       expect do
         Matrix.new
       end.to raise_error(ArgumentError)
@@ -41,7 +41,37 @@ describe Matrix do
           expect(matrix.instance_variable_get(:@matrix).flatten.size).to eq height*weight
         end
       end
+    end
+  end
+  context '#output' do
+    let(:program) { Matrix.new(5, 5) }
+    let(:matrix) { program.instance_variable_get(:@matrix) }
+    before(:each) { program.generate() }
+    context '#layered' do
+      context 'recursion' do
+        it 'should call with original matrix once' do
+          expect(program).to receive(:layered).with(matrix).once
 
+          program.output
+        end
+      end
+    end
+
+    it 'should set instance variable @result' do
+      program.output
+      expect(program.instance_variable_get(:@result)).to be_instance_of Array
+    end
+
+    it 'should return Array' do
+      expect(program.output).to be_instance_of Array
+    end
+
+    it 'should return output not nil' do
+      expect(program.output).to_not be_nil
+    end
+
+    it 'should return spiral-wise ' do
+      expect(program.output).to eq [1, 2, 3, 4, 5, 10, 15, 20, 25, 24, 23, 22, 21, 16, 11, 6, 7, 8, 9, 14, 19, 18, 17, 12, 13]
     end
   end
 end

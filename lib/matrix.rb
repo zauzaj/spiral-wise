@@ -1,26 +1,46 @@
 require 'pry-rails'
 class Matrix
+  attr_reader :result
+
   def initialize(x, y)
     @weight = x
     @height = y
+    @result = []
+  end
+
+  def output
+    matrix = @matrix.dup
+    layered(matrix)
+
+    @result
   end
 
   def generate
     nums = (1..@height*@weight).to_a
 
-    arr = Array.new(@height){Array.new(@weight)}
+    @matrix = Array.new(@height){Array.new(@weight)}
 
     i = 0
-    arr.each_with_index do |row, row_index|
+    @matrix.each_with_index do |row, row_index|
       row.each_with_index do |col, col_index|
-        arr[row_index][col_index] = nums[i]
+        @matrix[row_index][col_index] = nums[i]
         i += 1
       end
       p row
     end
 
-    @matrix = arr
+    @matrix
+  end
+
+  private
+  def layered(matrix)
+    #always get first row and remove it from matrix
+    @result.push(*matrix.shift)
+    #generate new matrix
+    m = matrix.transpose
+    #set last row as first
+    m = m.reverse
+
+    matrix.empty? ? @result : layered(m)
   end
 end
-puts 'Enter width and height: '
-Matrix.new(gets.to_i, gets.to_i).generate
